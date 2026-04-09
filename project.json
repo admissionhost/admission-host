@@ -1,0 +1,25 @@
+{
+  "overview": "Admission Host is a high-converting education consultancy website designed to generate student leads. Features a hero section, trust stats, course cards, services, testimonials, and a registration CTA linked to a Google Form.",
+  "features": [
+    "Hero section with Apply Now CTA",
+    "Trust stats: 500+ Students, 50+ Colleges, 9+ Years Experience",
+    "Course cards: Medical, Engineering, Pharmacy, Nursing, Management",
+    "Services section with 4 key offerings",
+    "Why Choose Us value propositions",
+    "Testimonial cards with 5-star ratings",
+    "Registration CTA linked to Google Form",
+    "Contact section with WhatsApp button",
+    "Floating WhatsApp button",
+    "Sticky header with smooth scrolling",
+    "Mobile responsive design"
+  ],
+  "category": "showcase",
+  "tags": [
+    "education",
+    "consultancy",
+    "lead-generation",
+    "landing-page",
+    "conversion"
+  ],
+  "last_updated": "2026-04-09T18:25:54.846Z"
+}
