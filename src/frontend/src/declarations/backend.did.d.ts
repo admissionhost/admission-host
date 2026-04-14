@@ -10,7 +10,19 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface _SERVICE {}
+export interface CollegeFile {
+  'id' : string,
+  'name' : string,
+  'fileName' : string,
+  'uploadedAt' : bigint,
+  'fileUrl' : string,
+}
+export interface _SERVICE {
+  'addCollegeFile' : ActorMethod<[string, string, string, string], string>,
+  'deleteCollegeFile' : ActorMethod<[string, string], boolean>,
+  'getCollegeFile' : ActorMethod<[string], [] | [CollegeFile]>,
+  'listCollegeFiles' : ActorMethod<[], Array<CollegeFile>>,
+}
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
 export declare const idlFactory: IDL.InterfaceFactory;

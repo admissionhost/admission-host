@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Award, BookOpen, Compass, School } from "lucide-react";
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeFu7RpltnY1Nzkf31b9MOe6g6uk51EpSjc6WljVaVeopve2w/viewform";
-
 const services = [
   {
     icon: BookOpen,
@@ -43,7 +40,11 @@ const services = [
   },
 ];
 
-export default function Services() {
+interface ServicesProps {
+  openModal: () => void;
+}
+
+export default function Services({ openModal }: ServicesProps) {
   return (
     <section id="services" className="py-20 bg-background">
       <div className="container max-w-7xl mx-auto px-4">
@@ -130,14 +131,12 @@ export default function Services() {
 
         <div className="text-center">
           <Button
-            asChild
+            onClick={openModal}
             size="lg"
             className="gradient-accent text-primary-foreground font-semibold px-8 hover:opacity-90 transition-smooth shadow-card"
             data-ocid="services-cta"
           >
-            <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
-              Get Started Today
-            </a>
+            Get Started Today
           </Button>
         </div>
       </div>

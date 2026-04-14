@@ -1,2 +1,15 @@
+type CollegeFile = 
+ record {
+   fileName: text;
+   fileUrl: text;
+   id: text;
+   name: text;
+   uploadedAt: int;
+ };
 service : {
+  addCollegeFile: (password: text, name: text, fileName: text, fileUrl:
+   text) -> (text);
+  deleteCollegeFile: (password: text, id: text) -> (bool);
+  getCollegeFile: (id: text) -> (opt CollegeFile) query;
+  listCollegeFiles: () -> (vec CollegeFile) query;
 }

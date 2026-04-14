@@ -8,10 +8,46 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+export const CollegeFile = IDL.Record({
+  'id' : IDL.Text,
+  'name' : IDL.Text,
+  'fileName' : IDL.Text,
+  'uploadedAt' : IDL.Int,
+  'fileUrl' : IDL.Text,
+});
+
+export const idlService = IDL.Service({
+  'addCollegeFile' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Text],
+      [],
+    ),
+  'deleteCollegeFile' : IDL.Func([IDL.Text, IDL.Text], [IDL.Bool], []),
+  'getCollegeFile' : IDL.Func([IDL.Text], [IDL.Opt(CollegeFile)], ['query']),
+  'listCollegeFiles' : IDL.Func([], [IDL.Vec(CollegeFile)], ['query']),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const CollegeFile = IDL.Record({
+    'id' : IDL.Text,
+    'name' : IDL.Text,
+    'fileName' : IDL.Text,
+    'uploadedAt' : IDL.Int,
+    'fileUrl' : IDL.Text,
+  });
+  
+  return IDL.Service({
+    'addCollegeFile' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Text],
+        [],
+      ),
+    'deleteCollegeFile' : IDL.Func([IDL.Text, IDL.Text], [IDL.Bool], []),
+    'getCollegeFile' : IDL.Func([IDL.Text], [IDL.Opt(CollegeFile)], ['query']),
+    'listCollegeFiles' : IDL.Func([], [IDL.Vec(CollegeFile)], ['query']),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };

@@ -2,16 +2,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeFu7RpltnY1Nzkf31b9MOe6g6uk51EpSjc6WljVaVeopve2w/viewform";
-
 const highlights = [
   "Free Initial Consultation",
   "Expert Career Guidance",
   "100% Transparent Process",
 ];
 
-export default function Hero() {
+interface HeroProps {
+  openModal: () => void;
+}
+
+export default function Hero({ openModal }: HeroProps) {
   const handleLearnMore = () => {
     const el = document.querySelector("#courses");
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -99,7 +100,7 @@ export default function Hero() {
 
             <div className="flex flex-wrap gap-4" data-ocid="hero-cta-group">
               <Button
-                asChild
+                onClick={openModal}
                 size="lg"
                 className="font-bold px-8 py-6 text-base rounded-xl shadow-elevated hover:opacity-90 hover:scale-105 transition-smooth"
                 style={{
@@ -108,23 +109,14 @@ export default function Hero() {
                 }}
                 data-ocid="hero-apply-btn"
               >
-                <a
-                  href={GOOGLE_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Apply Now <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
+                Apply Now <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
 
               <Button
                 variant="outline"
                 size="lg"
-                className="font-semibold px-8 py-6 text-base rounded-xl border-2 transition-smooth hover:bg-white/10"
-                style={{
-                  borderColor: "oklch(0.98 0 0 / 0.4)",
-                  color: "oklch(0.98 0 0)",
-                }}
+                className="btn-explore font-semibold px-8 py-6 text-base rounded-xl border-2"
+                style={{}}
                 onClick={handleLearnMore}
                 data-ocid="hero-learn-btn"
               >

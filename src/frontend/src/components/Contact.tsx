@@ -1,12 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock, MapPin, MessageCircle, Phone } from "lucide-react";
 
 const WHATSAPP_NUMBER = "917628954403";
 const PHONE_NUMBER = "7628954403";
 const ADDRESS =
   "Opp. of Sanghati Club, near Sankar Chowmuhani, Krishna Nagar, Agartala, Tripura 799001";
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeFu7RpltnY1Nzkf31b9MOe6g6uk51EpSjc6WljVaVeopve2w/viewform";
 
 const contactInfo = [
   {
@@ -43,7 +41,11 @@ const contactInfo = [
   },
 ];
 
-export default function Contact() {
+interface ContactProps {
+  openModal: () => void;
+}
+
+export default function Contact({ openModal }: ContactProps) {
   return (
     <section id="contact" className="py-20 bg-background">
       <div className="container max-w-7xl mx-auto px-4">
@@ -151,17 +153,11 @@ export default function Contact() {
 
             <div className="space-y-3 mb-6">
               <Button
-                asChild
+                onClick={openModal}
                 className="w-full gradient-primary text-primary-foreground font-semibold hover:opacity-90 transition-smooth"
                 data-ocid="contact-apply-btn"
               >
-                <a
-                  href={GOOGLE_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Apply Now — Fill Registration Form
-                </a>
+                Apply Now — Fill Registration Form
               </Button>
               <Button
                 asChild

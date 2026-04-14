@@ -1,5 +1,7 @@
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 
+type Page = "home" | "fees";
+
 const GOOGLE_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSeFu7RpltnY1Nzkf31b9MOe6g6uk51EpSjc6WljVaVeopve2w/viewform";
 const WHATSAPP_NUMBER = "917628954403";
@@ -13,10 +15,21 @@ const navLinks = [
 
 const courses = ["Medical", "Engineering", "Pharmacy", "Nursing", "Management"];
 
-export default function Footer() {
+interface FooterProps {
+  onNavigate?: (page: Page) => void;
+}
+
+export default function Footer({ onNavigate }: FooterProps) {
   const handleNavClick = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleFeesClick = () => {
+    if (onNavigate) {
+      onNavigate("fees");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const year = new Date().getFullYear();
@@ -123,6 +136,17 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={handleFeesClick}
+                  className="text-sm transition-smooth hover:text-white text-left"
+                  style={{ color: "rgba(255,255,255,0.72)" }}
+                  data-ocid="footer-fees-link"
+                >
+                  Fees Structure
+                </button>
+              </li>
               <li>
                 <a
                   href={GOOGLE_FORM_URL}

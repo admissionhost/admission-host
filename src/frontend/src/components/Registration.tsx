@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Clock } from "lucide-react";
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeFu7RpltnY1Nzkf31b9MOe6g6uk51EpSjc6WljVaVeopve2w/viewform";
-
 const steps = [
   {
     step: "01",
@@ -23,7 +20,11 @@ const steps = [
   },
 ];
 
-export default function Registration() {
+interface RegistrationProps {
+  openModal: () => void;
+}
+
+export default function Registration({ openModal }: RegistrationProps) {
   return (
     <section id="register" className="py-20 bg-muted/30">
       <div className="container max-w-7xl mx-auto px-4">
@@ -131,7 +132,7 @@ export default function Registration() {
               </ul>
 
               <Button
-                asChild
+                onClick={openModal}
                 size="lg"
                 className="w-full font-bold py-6 text-base rounded-xl transition-smooth hover:opacity-90 hover:scale-105 shadow-elevated"
                 style={{
@@ -140,14 +141,7 @@ export default function Registration() {
                 }}
                 data-ocid="registration-cta-btn"
               >
-                <a
-                  href={GOOGLE_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Register Now — It's Free{" "}
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
+                Register Now — It's Free <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
 
               <p

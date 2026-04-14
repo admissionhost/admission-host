@@ -7,9 +7,6 @@ import {
   Stethoscope,
 } from "lucide-react";
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeFu7RpltnY1Nzkf31b9MOe6g6uk51EpSjc6WljVaVeopve2w/viewform";
-
 const courses = [
   {
     icon: Stethoscope,
@@ -58,7 +55,11 @@ const courses = [
   },
 ];
 
-export default function Courses() {
+interface CoursesProps {
+  openModal: () => void;
+}
+
+export default function Courses({ openModal }: CoursesProps) {
   return (
     <section id="courses" className="py-20 bg-muted/30">
       <div className="container max-w-7xl mx-auto px-4">
@@ -89,12 +90,11 @@ export default function Courses() {
           {courses.map((course) => {
             const Icon = course.icon;
             return (
-              <a
+              <button
                 key={course.title}
-                href={GOOGLE_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group bg-card rounded-2xl p-6 shadow-card border border-border hover:shadow-elevated hover:-translate-y-1 transition-smooth block"
+                type="button"
+                onClick={openModal}
+                className="group bg-card rounded-2xl p-6 shadow-card border border-border hover:shadow-elevated hover:-translate-y-1 transition-smooth text-left w-full"
                 data-ocid={`course-${course.title.toLowerCase()}`}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -130,7 +130,7 @@ export default function Courses() {
                   Apply Now{" "}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-smooth" />
                 </div>
-              </a>
+              </button>
             );
           })}
 
@@ -148,10 +148,9 @@ export default function Courses() {
             <p className="text-white font-bold text-lg mb-4">
               Get Free Career Counselling
             </p>
-            <a
-              href={GOOGLE_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={openModal}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-smooth hover:opacity-90"
               style={{
                 background: "oklch(0.59 0.24 34)",
@@ -160,7 +159,7 @@ export default function Courses() {
               data-ocid="courses-counselling-cta"
             >
               Talk to an Expert <ArrowRight className="w-4 h-4" />
-            </a>
+            </button>
           </div>
         </div>
       </div>

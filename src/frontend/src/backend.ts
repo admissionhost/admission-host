@@ -89,10 +89,81 @@ export class ExternalBlob {
         return this;
     }
 }
-export interface backendInterface {
+export interface CollegeFile {
+    id: string;
+    name: string;
+    fileName: string;
+    uploadedAt: bigint;
+    fileUrl: string;
 }
+export interface backendInterface {
+    addCollegeFile(password: string, name: string, fileName: string, fileUrl: string): Promise<string>;
+    deleteCollegeFile(password: string, id: string): Promise<boolean>;
+    getCollegeFile(id: string): Promise<CollegeFile | null>;
+    listCollegeFiles(): Promise<Array<CollegeFile>>;
+}
+import type { CollegeFile as _CollegeFile } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async addCollegeFile(arg0: string, arg1: string, arg2: string, arg3: string): Promise<string> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addCollegeFile(arg0, arg1, arg2, arg3);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addCollegeFile(arg0, arg1, arg2, arg3);
+            return result;
+        }
+    }
+    async deleteCollegeFile(arg0: string, arg1: string): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteCollegeFile(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteCollegeFile(arg0, arg1);
+            return result;
+        }
+    }
+    async getCollegeFile(arg0: string): Promise<CollegeFile | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCollegeFile(arg0);
+                return from_candid_opt_n1(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCollegeFile(arg0);
+            return from_candid_opt_n1(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async listCollegeFiles(): Promise<Array<CollegeFile>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listCollegeFiles();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listCollegeFiles();
+            return result;
+        }
+    }
+}
+function from_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_CollegeFile]): CollegeFile | null {
+    return value.length === 0 ? null : value[0];
 }
 export interface CreateActorOptions {
     agent?: Agent;

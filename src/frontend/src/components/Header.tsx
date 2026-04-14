@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const navLinks = [
+type Page = "home" | "fees";
+
+const homeNavLinks = [
   { label: "Home", href: "#home" },
   { label: "Courses", href: "#courses" },
   { label: "Services", href: "#services" },
@@ -10,10 +12,17 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeFu7RpltnY1Nzkf31b9MOe6g6uk51EpSjc6WljVaVeopve2w/viewform";
+interface HeaderProps {
+  openModal: () => void;
+  currentPage: Page;
+  onNavigate: (page: Page) => void;
+}
 
-export default function Header() {
+export default function Header({
+  openModal,
+  currentPage,
+  onNavigate,
+}: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -23,10 +32,38 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleHomeNavClick = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (currentPage !== "home") {
+      onNavigate("home");
+      // Wait for page switch then scroll
+      setTimeout(() => {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 80);
+    } else {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleFeesClick = () => {
+    setMobileOpen(false);
+    onNavigate("fees");
+  };
+
+  const handleLogoClick = () => {
+    setMobileOpen(false);
+    onNavigate("home");
+    setTimeout(() => {
+      const el = document.querySelector("#home");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 80);
+  };
+
+  const handleCTAClick = () => {
+    setMobileOpen(false);
+    openModal();
   };
 
   return (
@@ -42,51 +79,62 @@ export default function Header() {
         {/* Logo */}
         <button
           type="button"
-          onClick={() => handleNavClick("#home")}
+          onClick={handleLogoClick}
           className="flex items-center group"
           aria-label="Admission Host - Home"
         >
-          <img
-            src="/assets/logo-full.png"
-            alt="Admission Host Logo"
-            className="h-12 w-auto object-contain group-hover:opacity-90 transition-smooth"
-          />
+          <div className="logo-container">
+            <img
+              src="/assets/logo-full.png"
+              alt="Admission Host Logo"
+              className="h-12 w-auto object-contain"
+            />
+          </div>
         </button>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
+          {homeNavLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => {
                 e.preventDefault();
-                handleNavClick(link.href);
+                handleHomeNavClick(link.href);
               }}
-              className="px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-smooth rounded-md hover:bg-primary/5"
+              className="nav-link-white px-4 py-2 text-sm rounded-md"
             >
               {link.label}
             </a>
           ))}
+          <button
+            type="button"
+            onClick={handleFeesClick}
+            className={`nav-link-white px-4 py-2 text-sm rounded-md${
+              currentPage === "fees" ? " active" : ""
+            }`}
+            data-ocid="nav-fees-desktop"
+          >
+            Fees Structure
+          </button>
         </nav>
 
         {/* CTA */}
         <div className="hidden md:block">
           <Button
-            asChild
+            onClick={openModal}
             className="gradient-accent text-primary-foreground font-semibold px-5 hover:opacity-90 transition-smooth shadow-card"
             data-ocid="header-cta"
           >
-            <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
-              Book Consultation
-            </a>
+            Book Consultation
           </Button>
         </div>
 
         {/* Mobile menu toggle */}
         <button
           type="button"
-          className="md:hidden p-2 rounded-md text-foreground hover:bg-muted transition-smooth"
+          className="md:hidden p-2 rounded-md transition-smooth"
+          style={{ color: "#ffffff" }}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           data-ocid="mobile-menu-toggle"
@@ -101,33 +149,40 @@ export default function Header() {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="md:hidden bg-card border-t border-border shadow-elevated animate-slide-down">
+        <div
+          className="md:hidden border-t border-border shadow-elevated animate-slide-down"
+          style={{ background: "#1F3C88" }}
+        >
           <nav className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {homeNavLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => {
                   e.preventDefault();
-                  handleNavClick(link.href);
+                  handleHomeNavClick(link.href);
                 }}
-                className="px-4 py-3 text-sm font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-md transition-smooth"
+                className="nav-link-white px-4 py-3 text-sm rounded-md"
               >
                 {link.label}
               </a>
             ))}
+            <button
+              type="button"
+              onClick={handleFeesClick}
+              className={`nav-link-white px-4 py-3 text-sm text-left rounded-md${
+                currentPage === "fees" ? " active" : ""
+              }`}
+              data-ocid="nav-fees-mobile"
+            >
+              Fees Structure
+            </button>
             <Button
-              asChild
+              onClick={handleCTAClick}
               className="mt-3 gradient-accent text-primary-foreground font-semibold"
               data-ocid="mobile-cta"
             >
-              <a
-                href={GOOGLE_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Book Consultation
-              </a>
+              Book Consultation
             </Button>
           </nav>
         </div>

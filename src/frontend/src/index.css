@@ -161,6 +161,54 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Nav links on dark blue header — pure white with orange hover */
+  .nav-link-white {
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+  }
+  .nav-link-white:hover,
+  .nav-link-white:focus-visible {
+    color: #f26522;
+    text-shadow: 0 1px 4px rgba(242, 101, 34, 0.35);
+  }
+  .nav-link-white.active {
+    color: #f26522;
+    text-shadow: 0 1px 4px rgba(242, 101, 34, 0.35);
+  }
+
+  /* Logo container — subtle white frosted pill on dark blue header */
+  .logo-container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    display: inline-flex;
+    align-items: center;
+    transition: background 0.2s ease;
+  }
+  .logo-container:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Explore Courses button — solid white, deep blue text, orange hover */
+  .btn-explore {
+    background: #ffffff;
+    color: #1f3c88;
+    border: 2px solid #ffffff;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .btn-explore:hover,
+  .btn-explore:focus-visible {
+    background: #f26522;
+    color: #ffffff;
+    border-color: #f26522;
+    box-shadow: 0 4px 16px rgba(242, 101, 34, 0.45);
+  }
+
   .gradient-primary {
     background: var(--gradient-primary);
   }
